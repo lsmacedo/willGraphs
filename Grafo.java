@@ -151,14 +151,12 @@ public class Grafo {
         return isConexo;
     }
     
-    private HashMap resetarMap(HashMap<Vertice, Boolean> map) {
-        map = new HashMap<>();
-        for (Vertice vertice : this.vertices) {
-            map.put(vertice, false);
-        }
-        return map;
-    }
-    
+    /**
+     * Caminha recursivamente pelos vértices adjacentes a V, e adiciona
+     * true no map a cada vértice visitado.
+     * @param visitados
+     * @param v 
+     */
     private void buscaProfundidade(HashMap<Vertice, Boolean> visitados, Vertice v) {
         visitados.put(v, true);
         Vertice[] adjacentes = v.getAdjacencias();
@@ -167,6 +165,19 @@ public class Grafo {
                 buscaProfundidade(visitados, w);
             }
         }
+    }
+    
+    /**
+     * Inicia o map com false em todas as posições.
+     * @param map
+     * @return 
+     */
+    private HashMap resetarMap(HashMap<Vertice, Boolean> map) {
+        map = new HashMap<>();
+        for (Vertice vertice : this.vertices) {
+            map.put(vertice, false);
+        }
+        return map;
     }
     
     /**
