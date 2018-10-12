@@ -101,7 +101,7 @@ public class Vertice {
         
         for (Vertice vertice : vertices) {
             if (!adjacencias.contains(vertice) && !vertice.equals(this)) {
-                Vertice clone = vertice.clone2();
+                Vertice clone = vertice.clone();
                 complementar.add(clone);
             }
         }
@@ -128,7 +128,12 @@ public class Vertice {
         return this.nome;
     }
     
-    public Vertice clone2() {
+    /**
+     * Devolve um vértice com o mesmo nome.
+     * No momento, este vértice é criado sem nenhuma adjacência.
+     * @return 
+     */
+    public Vertice clone() {
         Vertice clone = new Vertice(this.nome);
         clone.setAdjacencias(new Vertice[] { });
         return clone;

@@ -129,6 +129,12 @@ public class Grafo {
         return numGrausImpares == 2;
     }
     
+    /**
+     * Obtem o grafo complementar a este.
+     * Para isto, percorre todos os vértices e obtem os vértices com que não são
+     * adjacentes.
+     * @return 
+     */
     public Grafo getComplementar() {
         Grafo gComplementar = new Grafo(this.nome + " - Complementar");
         Vertice[] verticesComplementares = new Vertice[this.vertices.length];
