@@ -5,6 +5,9 @@
  */
 package trabalho.prático.grafos;
 
+import java.util.Arrays;
+import java.util.HashMap;
+
 /**
  *
  * @author Lucas
@@ -93,6 +96,46 @@ public class Grafo {
             }
         }
         return isCompleto;
+    }
+    
+    /**
+     * Informa se este grafo é conexo.
+     * Para isto verifica se cada vértice consegue chegar em qualquer outro.
+     * @return 
+     */
+    public boolean isConexo() {
+        boolean isConexo = true;
+        HashMap<Vertice, Boolean> visitados = new HashMap<>();
+        visitados = this.resetarMap(visitados);
+        
+        for (Vertice v : this.vertices) {
+            this.buscaProfundidade(visitados, v);
+            if (visitados.containsValue(false)) {
+                isConexo = false;
+                break;
+            }
+            visitados = this.resetarMap(visitados);
+        }
+        
+        return isConexo;
+    }
+    
+    private HashMap resetarMap(HashMap<Vertice, Boolean> map) {
+        map = new HashMap<>();
+        for (Vertice vertice : this.vertices) {
+            map.put(vertice, false);
+        }
+        return map;
+    }
+    
+    private void buscaProfundidade(HashMap<Vertice, Boolean> visitados, Vertice v) {
+        visitados.put(v, true);
+        Vertice[] adjacentes = v.getAdjacencias();
+        for (Vertice w : adjacentes) {
+            if (!visitados.get(w)) {
+                buscaProfundidade(visitados, w);
+            }
+        }
     }
     
     /**

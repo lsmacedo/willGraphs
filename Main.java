@@ -34,7 +34,7 @@ public class Main {
         v2.setAdjacencias(new Vertice[]{ v1, v3, v5 });
         v3.setAdjacencias(new Vertice[]{ v2, v4 });
         v4.setAdjacencias(new Vertice[]{ v3, v5, v6 });
-        v5.setAdjacencias(new Vertice[]{ v1, v2, v4 });
+        v5.setAdjacencias(new Vertice[]{ v1, v4 });
         v6.setAdjacencias(new Vertice[]{ v4 });
         
         /* Inserindo vértices no grafo                                        */
@@ -48,6 +48,7 @@ public class Main {
         System.out.println("Vértice 1 é pendente? " + escreverResposta(grafo.isPendente(v1)));
         System.out.println("Grafo é nulo?         " + escreverResposta(grafo.isNulo()));
         System.out.println("Grafo é completo?     " + escreverResposta(grafo.isCompleto()));
+        System.out.println("Grafo é conexo?       " + escreverResposta(grafo.isConexo()));
     }
     
     public static String escreverResposta(boolean resposta) {

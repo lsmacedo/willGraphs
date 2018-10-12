@@ -38,6 +38,14 @@ public class Vertice {
     }
     
     /**
+     * Devolve os vértices adjacentes a este.
+     * @return 
+     */
+    public Vertice[] getAdjacencias() {
+        return this.adjacencias;
+    }
+    
+    /**
      * Define as adjacências do vértice e atualiza o grau.
      * @param adjacencias 
      */
@@ -90,6 +98,15 @@ public class Vertice {
      */
     public boolean equals(Vertice vertice) {
         return this.nome.equals(vertice.nome);
+    }
+    
+    /**
+     * Sobrescrevendo toString para facilitar na depuração.
+     * @return 
+     */
+    @Override
+    public String toString() {
+        return this.nome;
     }
     
 }
