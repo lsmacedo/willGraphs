@@ -99,6 +99,37 @@ public class Grafo {
     }
     
     /**
+     * Informa se este grafo é euleriano.
+     * Para isto verifica se todos os vértices possuem grau par.
+     * @return 
+     */
+    public boolean isEuleriano() {
+        boolean euleriano = true;
+        for (Vertice v : vertices) {
+            if (v.getGrau() % 2 != 0) {
+                euleriano = false;
+                break;
+            }
+        }
+        return euleriano;
+    }
+    
+    /**
+     * Informa se este grafo é unicursal.
+     * Para isto verifica se possui dois vértices com grau ímpar.
+     * @return 
+     */
+    public boolean isUnicursal() {
+        int numGrausImpares = 0;
+        for (Vertice v : vertices) {
+            if (v.getGrau() % 2 != 0) {
+                numGrausImpares++;
+            }
+        }
+        return numGrausImpares == 2;
+    }
+    
+    /**
      * Informa se este grafo é conexo.
      * Para isto verifica se cada vértice consegue chegar em qualquer outro.
      * @return 
