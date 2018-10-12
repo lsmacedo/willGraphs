@@ -129,6 +129,19 @@ public class Grafo {
         return numGrausImpares == 2;
     }
     
+    public Grafo getComplementar() {
+        Grafo gComplementar = new Grafo(this.nome + " - Complementar");
+        Vertice[] verticesComplementares = new Vertice[this.vertices.length];
+        for (int i = 0; i < this.vertices.length; i++) {
+            Vertice v = this.vertices[i];
+            Vertice vComplementar = new Vertice(v.getNome());
+            vComplementar.setAdjacencias(v.getComplementar(this.vertices));
+            verticesComplementares[i] = vComplementar;
+        }
+        gComplementar.setVertices(verticesComplementares);
+        return gComplementar;
+    }
+    
     /**
      * Informa se este grafo é conexo.
      * Para isto verifica se cada vértice consegue chegar em qualquer outro.
@@ -196,6 +209,19 @@ public class Grafo {
      */
     public int getGrau(Vertice vertice) {
         return vertice.getGrau();
+    }
+    
+    @Override
+    public String toString() {
+        String string = "";
+        for (Vertice v : this.vertices) {
+            string += v.toString();
+            for (Vertice adj : v.getAdjacencias()) {
+                string += " - " + adj.toString();
+            }
+            string += "\n";
+        }
+        return string;
     }
     
 }

@@ -5,6 +5,9 @@
  */
 package trabalho.prático.grafos;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  *
  * @author Lucas
@@ -14,10 +17,7 @@ public class Vertice {
     private int       grau = 0;
     private Vertice[] adjacencias;
     
-    public Vertice(String nome) throws Exception {
-        if (nome == null) 
-            throw new Exception("O nome do vértice não deve ser nulo");
-        
+    public Vertice(String nome) {        
         this.nome     = nome;
     }
     
@@ -91,6 +91,25 @@ public class Vertice {
     }
     
     /**
+     * Devolve todos os vértices com que este não faz adjacência.
+     * @param vertices
+     * @return 
+     */
+    public Vertice[] getComplementar(Vertice[] vertices) {
+        ArrayList<Vertice> adjacencias = new ArrayList<>(Arrays.asList(this.adjacencias));
+        ArrayList<Vertice> complementar = new ArrayList<>();
+        
+        for (Vertice vertice : vertices) {
+            if (!adjacencias.contains(vertice) && !vertice.equals(this)) {
+                Vertice clone = vertice.clone2();
+                complementar.add(clone);
+            }
+        }
+        
+        return complementar.toArray(new Vertice[complementar.size()]);
+    }
+    
+    /**
      * Verifica se este vértice é igual ao recebido por parâmetro.
      * Para isto, verifica se o nome dos dois é igual.
      * @param vertice
@@ -107,6 +126,12 @@ public class Vertice {
     @Override
     public String toString() {
         return this.nome;
+    }
+    
+    public Vertice clone2() {
+        Vertice clone = new Vertice(this.nome);
+        clone.setAdjacencias(new Vertice[] { });
+        return clone;
     }
     
 }
