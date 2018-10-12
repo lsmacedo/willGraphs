@@ -34,7 +34,7 @@ public class Main {
         v2.setAdjacencias(new Vertice[]{ v1, v3, v5 });
         v3.setAdjacencias(new Vertice[]{ v2, v4 });
         v4.setAdjacencias(new Vertice[]{ v3, v5, v6 });
-        v5.setAdjacencias(new Vertice[]{ v1, v4, v5 });
+        v5.setAdjacencias(new Vertice[]{ v1, v2, v4 });
         v6.setAdjacencias(new Vertice[]{ v4 });
         
         /* Inserindo vértices no grafo                                        */
