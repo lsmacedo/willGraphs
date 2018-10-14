@@ -232,17 +232,17 @@ public class Grafo {
         return vertice.isPendente();
     }
     
-    public Boolean[][] montarMatriz() {
-        Boolean[][] matriz = new Boolean[this.vertices.length][this.vertices.length];
+    public MatrizAdjacencias montarMatriz() {
+        Integer[][] matriz = new Integer[this.vertices.length][this.vertices.length];
         
         for (int x = 0; x < this.vertices.length; x++) {
             ArrayList<Vertice> adjacencias = new ArrayList(Arrays.asList(this.vertices[x].getAdjacencias()));
             for (int y = 0; y < this.vertices.length; y++) {
-                matriz[x][y] = adjacencias.contains(this.vertices[y]);
+                matriz[x][y] = adjacencias.contains(this.vertices[y]) ? 1 : 0;
             }
         }
         
-        return matriz;
+        return new MatrizAdjacencias(matriz);
     }
     
     /**
@@ -259,32 +259,46 @@ public class Grafo {
      * @return 
      */
     public boolean hasCiclo() {
-        //static int pre[1000], post[1000];
-        //bool GRAPHhasCycle( Graph G) 
-        //{
-        //   GRAPHdfs( G);
-        //
-        //   for (vertex v = 0; v < G->V; ++v) {
-        //      for (link a = G->adj[v]; a != NULL; a = a->next) {
-        //         vertex w = a->w;
-        //         if (post[v] < post[w]) /* v-w é de retorno */
-        //            return true;
-        //      }
-        //   } 
-        //   /* post[v] > post[w] para todo arco v-w */
-        //   return false;
-        //}
-        //@TODO
-        return true;
+        Integer[][] matriz = this.montarMatriz().getMatriz();
+        for (int x = 0; x < this.vertices.length; x++) {
+            int consecutivos = 0;
+            for (int y = 0; y < this.vertices.length; y++) {
+                int virtualX = x + consecutivos;
+                if (x+consecutivos >= this.vertices.length) virtualX = (x + consecutivos) - this.vertices.length;
+                if (matriz[virtualX][y] == 1) {
+                    consecutivos++;
+                } 
+                if (consecutivos >= 2 && matriz[x][y] == 1) {
+                    return true;
+                } 
+                if (matriz[virtualX][y] != 1) consecutivos = 0;
+            }
+        }
+        return false;
     }
     
     /**
      * Informa se este grafo possui especificamente algum ciclo impar.
+     * Isto é útil para descobrir se o grafo é bipartido.
      * @return 
      */
     public boolean hasCicloImpar() {
-        //@TODO
-        return true;
+        Integer[][] matriz = this.montarMatriz().getMatriz();
+        for (int x = 0; x < this.vertices.length; x++) {
+            int consecutivos = 0;
+            for (int y = 0; y < this.vertices.length; y++) {
+                int virtualX = x + consecutivos;
+                if (x+consecutivos >= this.vertices.length) virtualX = (x + consecutivos) - this.vertices.length;
+                if (matriz[virtualX][y] == 1) {
+                    consecutivos++;
+                } 
+                if (consecutivos >= 2 && (consecutivos + 1) % 2 != 0 && matriz[x][y] == 1) {
+                    return true;
+                } 
+                if (matriz[virtualX][y] != 1) consecutivos = 0;
+            }
+        }
+        return false;
     }
     
     /**

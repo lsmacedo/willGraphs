@@ -5,6 +5,8 @@
  */
 package trabalho.prático.grafos;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Lucas
@@ -40,8 +42,10 @@ public class Main {
         /* Inserindo vértices no grafo                                             */
         grafo.setVertices(new Vertice[]{ v1, v2, v3, v4, v5, v6 });
         
-        /* Executando verificações                                                 */;
-        System.out.println("1 e 2 são adjacentes? " + escreverResposta(grafo.isAdjacente(v1, v2)));;
+        /* Executando verificações                                                 */
+        System.out.println("Lista de adjacências:\n" + grafo.toString());
+        System.out.println("Matriz de adjacências:\n" + grafo.montarMatriz().toString() + "\n");
+        System.out.println("1 e 2 são adjacentes? " + escreverResposta(grafo.isAdjacente(v1, v2)));
         System.out.println("Grau do vértice 1?    " + grafo.getGrau(v1));
         System.out.println("Grafo é regular?      " + escreverResposta(grafo.isRegular()));
         System.out.println("Vértice 6 é isolado?  " + escreverResposta(grafo.isIsolado(v6)));
@@ -54,9 +58,9 @@ public class Main {
         System.out.println("Grafo é hamiltoniano? " + escreverResposta(grafo.isHamiltoniano()));
         System.out.println("Número de arestas?    " + grafo.getNumArestas());
         System.out.println("Possui algum ciclo?   " + escreverResposta(grafo.hasCiclo()));
-        System.out.println("É bipartido?   " + escreverResposta(grafo.isBipartido()));
+        System.out.println("Possui ciclo ímpar?   " + escreverResposta(grafo.hasCicloImpar()));
+        System.out.println("É bipartido?          " + escreverResposta(grafo.isBipartido()));
         System.out.println("Grafo complementar: \n" + grafo.getComplementar().toString());
-        grafo.montarMatriz();
     }
     
     public static String escreverResposta(boolean resposta) {
