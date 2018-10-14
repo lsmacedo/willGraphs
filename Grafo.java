@@ -5,6 +5,7 @@
  */
 package trabalho.prático.grafos;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -13,8 +14,8 @@ import java.util.HashMap;
  * @author Lucas
  */
 public class Grafo {
-    private String    nome;
-    private Vertice[] vertices;
+    private final String nome;
+    private Vertice[]    vertices;
     
     public Grafo(String nome) {
         this.nome = nome;
@@ -149,6 +150,29 @@ public class Grafo {
     }
     
     /**
+     * Devolve o número de arestas de um grafo não dirigido.
+     * @return 
+     */
+    public int getNumArestas() {
+        int numArestas = 0;
+        for (Vertice vertice : this.vertices) {
+            numArestas += vertice.getAdjacencias().length;
+        }
+        return numArestas / 2;
+    }
+    
+    public boolean isHamiltoniano() {
+        if (this.vertices.length >= 3) {
+            for (Vertice v : this.vertices) {
+                if (v.getGrau() < this.vertices.length / 2) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    /**
      * Informa se este grafo é conexo.
      * Para isto verifica se cada vértice consegue chegar em qualquer outro.
      * @return 
@@ -206,6 +230,61 @@ public class Grafo {
      */
     public boolean isPendente(Vertice vertice) {
         return vertice.isPendente();
+    }
+    
+    public Boolean[][] montarMatriz() {
+        Boolean[][] matriz = new Boolean[this.vertices.length][this.vertices.length];
+        
+        for (int x = 0; x < this.vertices.length; x++) {
+            ArrayList<Vertice> adjacencias = new ArrayList(Arrays.asList(this.vertices[x].getAdjacencias()));
+            for (int y = 0; y < this.vertices.length; y++) {
+                matriz[x][y] = adjacencias.contains(this.vertices[y]);
+            }
+        }
+        
+        return matriz;
+    }
+    
+    /**
+     * Informa se este grafo é bipartido.
+     * Para isto verifica se não possui nenhum ciclo impar.
+     * @return 
+     */
+    public boolean isBipartido() {
+        return !this.hasCicloImpar();
+    }
+    
+    /**
+     * Informa se este grafo possui algum ciclo.
+     * @return 
+     */
+    public boolean hasCiclo() {
+        //static int pre[1000], post[1000];
+        //bool GRAPHhasCycle( Graph G) 
+        //{
+        //   GRAPHdfs( G);
+        //
+        //   for (vertex v = 0; v < G->V; ++v) {
+        //      for (link a = G->adj[v]; a != NULL; a = a->next) {
+        //         vertex w = a->w;
+        //         if (post[v] < post[w]) /* v-w é de retorno */
+        //            return true;
+        //      }
+        //   } 
+        //   /* post[v] > post[w] para todo arco v-w */
+        //   return false;
+        //}
+        //@TODO
+        return true;
+    }
+    
+    /**
+     * Informa se este grafo possui especificamente algum ciclo impar.
+     * @return 
+     */
+    public boolean hasCicloImpar() {
+        //@TODO
+        return true;
     }
     
     /**
