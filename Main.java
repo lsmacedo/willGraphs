@@ -17,6 +17,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Testes testes = new Testes();
+        testes.realizarTestes();
         /* Instanciando grafo igual ao da imagem:
            https://pt.wikipedia.org/wiki/Teoria_dos_grafos#/media/File:6n-graf.svg */
         

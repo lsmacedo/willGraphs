@@ -19,7 +19,18 @@ public class Grafo {
     
     public Grafo(String nome) {
         this.nome = nome;
-    }    
+    }
+
+    public Vertice getVertice(String nome) {
+        Vertice vertice = null;
+        for (Vertice v : this.vertices) {
+            if (v.getNome().equals(nome)) {
+                vertice = v;
+                break;
+            }
+        }
+        return vertice;
+    }
     
     /**
      * Define os vértices do grafo.
