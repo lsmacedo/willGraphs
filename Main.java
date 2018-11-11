@@ -19,6 +19,7 @@ public class Main {
     public static void main(String[] args) {
         Testes testes = new Testes();
         testes.realizarTestes();
+        
         /* Instanciando grafo igual ao da imagem:
            https://pt.wikipedia.org/wiki/Teoria_dos_grafos#/media/File:6n-graf.svg */
         
@@ -30,42 +31,39 @@ public class Main {
         Vertice v2 = new Vertice("2");
         Vertice v3 = new Vertice("3");
         Vertice v4 = new Vertice("4");
-        Vertice v5 = new Vertice("5");
-        Vertice v6 = new Vertice("6");
         
         /* Definindo adjacências dos vértices   */    
-        v1.setAdjacencias(new Vertice[]{ v2, v5 });
-        v2.setAdjacencias(new Vertice[]{ v1, v3, v5 });
-        v3.setAdjacencias(new Vertice[]{ v2, v4 });
-        v4.setAdjacencias(new Vertice[]{ v3, v5, v6 });
-        v5.setAdjacencias(new Vertice[]{ v1, v2, v4 });
-        v6.setAdjacencias(new Vertice[]{ v4 });
+        v1.setAdjacencias(new Vertice[]{ v2, v3, v4 });
+        v2.setAdjacencias(new Vertice[]{ v4, v1, v3 });
+        v3.setAdjacencias(new Vertice[]{ v1, v4, v2 });
+        v4.setAdjacencias(new Vertice[]{ v1, v2, v3 });
         
         /* Inserindo vértices no grafo                                             */
-        grafo.setVertices(new Vertice[]{ v1, v2, v3, v4, v5, v6 });
+        grafo.setVertices(new Vertice[]{ v1, v2, v3, v4 });
         
         /* Executando verificações                                                 */
-        System.out.println("Lista de adjacências:\n" + grafo.toString());
+        System.out.println("\n" + grafo.toString());;
         System.out.println("Matriz de adjacências:\n" + grafo.montarMatriz().toString() + "\n");
-        System.out.println("1 e 2 são adjacentes? " + escreverResposta(grafo.isAdjacente(v1, v2)));
-        System.out.println("Grau do vértice 1?    " + grafo.getGrau(v1));
-        System.out.println("Grafo é regular?      " + escreverResposta(grafo.isRegular()));
-        System.out.println("Vértice 6 é isolado?  " + escreverResposta(grafo.isIsolado(v6)));
-        System.out.println("Vértice 6 é pendente? " + escreverResposta(grafo.isPendente(v6)));
-        System.out.println("Grafo é nulo?         " + escreverResposta(grafo.isNulo()));
-        System.out.println("Grafo é completo?     " + escreverResposta(grafo.isCompleto()));
-        System.out.println("Grafo é conexo?       " + escreverResposta(grafo.isConexo()));
-        System.out.println("Grafo é euleriano?    " + escreverResposta(grafo.isEuleriano()));
-        System.out.println("Grafo é unicursal?    " + escreverResposta(grafo.isUnicursal()));
-        System.out.println("Grafo é hamiltoniano? " + escreverResposta(grafo.isHamiltoniano()));
-        System.out.println("Número de arestas?    " + grafo.getNumArestas());
-        System.out.println("Possui algum ciclo?   " + escreverResposta(grafo.hasCiclo()));
-        System.out.println("Possui ciclo ímpar?   " + escreverResposta(grafo.hasCicloImpar()));
-        System.out.println("É bipartido?          " + escreverResposta(grafo.isBipartido()));
-        System.out.println("Grafo complementar: \n" + grafo.getComplementar().toString());
+        System.out.println("1 e 2 são adjacentes?      " + escreverBooleano(grafo.isAdjacente(v1, v2)));
+        System.out.println("Grau do vértice 1?         " + grafo.getGrau(v1));
+        System.out.println("Grafo é regular?           " + escreverBooleano(grafo.isRegular()));
+        System.out.println("Vértice 4 é isolado?       " + escreverBooleano(grafo.isIsolado(v4)));
+        System.out.println("Vértice 4 é pendente?      " + escreverBooleano(grafo.isPendente(v4)));
+        System.out.println("Grafo é nulo?              " + escreverBooleano(grafo.isNulo()));
+        System.out.println("Grafo é completo?          " + escreverBooleano(grafo.isCompleto()));
+        System.out.println("Grafo é conexo?            " + escreverBooleano(grafo.isConexo()));
+        System.out.println("Grafo é fortemente conexo? " + escreverBooleano(grafo.isFConexo()));
+        System.out.println("Grafo é euleriano?         " + escreverBooleano(grafo.isEuleriano()));
+        System.out.println("Grafo é unicursal?         " + escreverBooleano(grafo.isUnicursal()));
+        System.out.println("Grafo é hamiltoniano?      " + escreverBooleano(grafo.isHamiltoniano()));
+        System.out.println("Número de arestas?         " + grafo.getNumArestas());
+        System.out.println("Possui algum ciclo?        " + escreverBooleano(grafo.hasCiclo()));
+        System.out.println("Possui ciclo ímpar?        " + escreverBooleano(grafo.hasCicloImpar()));
+        System.out.println("É bipartido?               " + escreverBooleano(grafo.isBipartido()));
+        System.out.println("\n" + grafo.getComplementar().toString()); //@toDo
     }
     
-    public static String escreverResposta(boolean resposta) {
+    public static String escreverBooleano(boolean resposta) {
         return resposta == true ? "Sim" : "Não";
     }
     

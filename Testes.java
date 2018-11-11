@@ -38,6 +38,8 @@ public class Testes {
             this.testeGrafoUnicursal();
             this.testeNumArestas();
             this.testeHasCiclo();
+            this.testeGrauEntrada();
+            this.testeFConexo();
             System.out.println("Testes realizados com sucesso. Nenhum erro encontrado.");
         } catch (Exception e) {
             System.err.println("Uma exceção foi encontrado ao realizar os testes: " + e.getMessage());
@@ -304,6 +306,25 @@ public class Testes {
             throw new Exception("Problema em hasCiclo");
         if (g3.hasCiclo())
             throw new Exception("Problema em hasCiclo");
+    }
+    
+    private void testeGrauEntrada() throws Exception {
+        Grafo g3 = this.grafo3;
+        
+        if (g3.getGrauEntrada(g3.getVertice("C")) != 1) 
+            throw new Exception("Problema em getGrauEntrada");
+        if (g3.getGrauEntrada(g3.getVertice("H")) != 0)
+            throw new Exception("Problema em getGrauEntrada");
+    }
+    
+    private void testeFConexo() throws Exception {
+        Grafo g2 = this.grafo2;
+        Grafo g6 = this.grafo6;
+        
+        if (!g6.isFConexo())
+            throw new Exception("Problema em isFConexo");
+        if (g2.isFConexo())
+            throw new Exception("Problema em isFConexo");
     }
     
 }

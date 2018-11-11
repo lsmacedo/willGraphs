@@ -15,7 +15,9 @@ import java.util.Arrays;
 public class Vertice {
     private String    nome;
     private int       grau = 0;
+    private Integer   topSort = null;
     private Vertice[] adjacencias;
+    public int        inDegree = 0;
     
     public Vertice(String nome) {        
         this.nome     = nome;
@@ -38,6 +40,14 @@ public class Vertice {
     }
     
     /**
+     * Devolve o indice da ordenação topológica.
+     * @return 
+     */
+    public Integer getTopSort() {
+        return this.topSort;
+    }
+    
+    /**
      * Devolve os vértices adjacentes a este.
      * @return 
      */
@@ -52,6 +62,14 @@ public class Vertice {
     public void setAdjacencias(Vertice[] adjacencias) {
         this.adjacencias = adjacencias;
         this.grau = adjacencias.length;
+    }
+    
+    /**
+     * Define o indice da ordenação topológica.
+     * @param topSort 
+     */
+    public void setTopSort(Integer topSort) {
+        this.topSort = topSort;
     }
     
     /**

@@ -8,6 +8,8 @@ package trabalho.prático.grafos;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  *
@@ -149,14 +151,8 @@ public class Grafo {
      */
     public Grafo getComplementar() {
         Grafo gComplementar = new Grafo(this.nome + " - Complementar");
-        Vertice[] verticesComplementares = new Vertice[this.vertices.length];
-        for (int i = 0; i < this.vertices.length; i++) {
-            Vertice v = this.vertices[i];
-            Vertice vComplementar = new Vertice(v.getNome());
-            vComplementar.setAdjacencias(v.getComplementar(this.vertices));
-            verticesComplementares[i] = vComplementar;
-        }
-        gComplementar.setVertices(verticesComplementares);
+        gComplementar.setVertices(new Vertice[] { });
+        //@toDo
         return gComplementar;
     }
     
@@ -203,6 +199,23 @@ public class Grafo {
         }
         
         return isConexo;
+    }
+    
+    /**
+     * Informa se este grafo é formetente conexo.
+     * Para isto verifica se cada vértice está ligado a qualquer outro.
+     * @return 
+     */
+    public boolean isFConexo() {
+        boolean isFConexo = true;
+        for (Vertice vertice : this.vertices) {
+            if (vertice.getAdjacencias().length < this.vertices.length - 1) {
+                isFConexo = false;
+                break;
+            }
+        }
+        
+        return isFConexo;
     }
     
     /**
@@ -254,6 +267,12 @@ public class Grafo {
         }
         
         return new MatrizAdjacencias(matriz);
+    }
+    
+    public Grafo getTransposto() {
+        Grafo transposto = new Grafo(this.nome + " - Transposto");
+        //@ToDo
+        return transposto;
     }
     
     /**
@@ -321,9 +340,56 @@ public class Grafo {
         return vertice.getGrau();
     }
     
+    /**
+     * Informa o grau de entrada de um vértice enviado por parâmetro.
+     * Para isto percorre todos os vértices e verifica quandos se dirigem a este.
+     * @param vertice
+     * @return 
+     */
+    public int getGrauEntrada(Vertice vertice) {
+        int grauEntrada = 0;
+        for (Vertice v : this.vertices) {
+            if (v.isAdjacente(vertice)) {
+                grauEntrada++;
+            }
+        }
+        return grauEntrada;
+    }
+    
+    public void topologicalSort() throws Exception {
+        if (this.hasCiclo()) {
+            throw new Exception("Tentando realizar ordenação topológica em grafo cíclo");
+        }
+        this.setInDegrees();
+        Vertice[] tsL = new Vertice[this.vertices.length];;
+        LinkedList<Vertice> S = new LinkedList<>(); // fila S com vertice fonte
+        for (Vertice v : this.vertices) {
+            if (v.getGrau() == 0)
+                S.add(v);
+        }
+        int t = 0; // inicia contador
+        while (!S.isEmpty()) {
+            Vertice v = S.poll();
+            v.setTopSort(t);
+            tsL[t++] = v; // insere em arranjo ordenado
+            for (Vertice w : v.getAdjacencias()) {
+                w.inDegree--;
+                if (w.inDegree == 0) {
+                    S.add(w);
+                }
+            }
+        }
+    }
+    
+    public void setInDegrees() {
+        for (Vertice v : this.vertices) {
+            v.inDegree = this.getGrauEntrada(v);
+        }
+    }
+    
     @Override
     public String toString() {
-        String string = "";
+        String string = "Imprimindo grafo " + this.nome + ": \n";
         for (Vertice v : this.vertices) {
             string += v.toString();
             for (Vertice adj : v.getAdjacencias()) {
