@@ -43,7 +43,7 @@ public class Main {
         
         /* Executando verificações                                                 */
         System.out.println("\n" + grafo.toString());;
-        System.out.println("Matriz de adjacências:\n" + grafo.montarMatriz().toString() + "\n");
+        System.out.println(grafo.montarMatriz().toString() + "\n");
         System.out.println("1 e 2 são adjacentes?      " + escreverBooleano(grafo.isAdjacente(v1, v2)));
         System.out.println("Grau do vértice 1?         " + grafo.getGrau(v1));
         System.out.println("Grafo é regular?           " + escreverBooleano(grafo.isRegular()));
@@ -60,7 +60,10 @@ public class Main {
         System.out.println("Possui algum ciclo?        " + escreverBooleano(grafo.hasCiclo()));
         System.out.println("Possui ciclo ímpar?        " + escreverBooleano(grafo.hasCicloImpar()));
         System.out.println("É bipartido?               " + escreverBooleano(grafo.isBipartido()));
-        System.out.println("\n" + grafo.getComplementar().toString()); //@toDo
+        System.out.println("\n" + grafo.getComplementar()); //@toDo
+        System.out.println(grafo.getTransposto());          //@toDo
+        grafo.ordenacaoTopologica();                        //@toDo
+        System.out.println("\nGrafo pós ordenação topológica:\n" + grafo);
     }
     
     public static String escreverBooleano(boolean resposta) {

@@ -14,9 +14,11 @@ import java.util.Arrays;
 public class MatrizAdjacencias {
     
     private Integer[][] matriz;
+    private String      nomeGrafo;
     
-    public MatrizAdjacencias(Integer[][] matriz) {
-        this.matriz = matriz;
+    public MatrizAdjacencias(Integer[][] matriz, String nomeGrafo) {
+        this.matriz    = matriz;
+        this.nomeGrafo = nomeGrafo;
     }
     
     public Integer[][] getMatriz() {
@@ -25,7 +27,7 @@ public class MatrizAdjacencias {
     
     @Override
     public String toString() {
-        String string = "";
+        String string = "Matriz de adjacências do grafo " + this.nomeGrafo + ":\n";
         for (int i = 0; i < this.matriz.length; i++) {
             if (i != 0) string += "\n";
             string += Arrays.toString(this.matriz[i]);

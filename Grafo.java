@@ -266,13 +266,18 @@ public class Grafo {
             }
         }
         
-        return new MatrizAdjacencias(matriz);
+        return new MatrizAdjacencias(matriz, this.nome);
     }
     
     public Grafo getTransposto() {
         Grafo transposto = new Grafo(this.nome + " - Transposto");
+        transposto.setVertices(new Vertice[] { });
         //@ToDo
         return transposto;
+    }
+    
+    public void ordenacaoTopologica() {
+        //@ToDo
     }
     
     /**
@@ -389,7 +394,7 @@ public class Grafo {
     
     @Override
     public String toString() {
-        String string = "Imprimindo grafo " + this.nome + ": \n";
+        String string = "Lista de adjacências do grafo " + this.nome + ": \n";
         for (Vertice v : this.vertices) {
             string += v.toString();
             for (Vertice adj : v.getAdjacencias()) {
