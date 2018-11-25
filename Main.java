@@ -20,9 +20,6 @@ public class Main {
         Testes testes = new Testes();
         testes.realizarTestes();
         
-        /* Instanciando grafo igual ao da imagem:
-           https://pt.wikipedia.org/wiki/Teoria_dos_grafos#/media/File:6n-graf.svg */
-        
         /* Instanciando um grafo com nome G                                        */
         Grafo grafo = new Grafo("G");
         
