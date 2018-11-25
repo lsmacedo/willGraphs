@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho.prático.grafos;
+package trabalhopratico;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -150,9 +151,26 @@ public class Grafo {
      * @return 
      */
     public Grafo getComplementar() {
-        Grafo gComplementar = new Grafo(this.nome + " - Complementar");
-        gComplementar.setVertices(new Vertice[] { });
-        //@toDo
+        Grafo gComplementar = new Grafo(this.nome + " Complementar");
+        List<Vertice> vertices = new ArrayList<>();
+        
+        for (Vertice v : this.vertices) {
+            Vertice vertice = new Vertice(v.getNome() + "C");
+            List<Vertice> adjacencias = new ArrayList(Arrays.asList(v.getAdjacencias()));
+            List<Vertice> adjacenciasComplementar = new ArrayList<>();
+            for (Vertice v2 : this.vertices) {
+                if (!v2.equals(v) && !adjacencias.contains(v2)) {
+                    adjacenciasComplementar.add(new Vertice(v2.getNome() + "C"));
+                }
+            }
+            Vertice[] arr = new Vertice[adjacenciasComplementar.size()];
+            vertice.setAdjacencias(adjacenciasComplementar.toArray(arr));
+            vertices.add(vertice);
+        }
+        
+        Vertice[] arr = new Vertice[vertices.size()];
+        gComplementar.setVertices(vertices.toArray(arr));
+        
         return gComplementar;
     }
     
@@ -272,12 +290,8 @@ public class Grafo {
     public Grafo getTransposto() {
         Grafo transposto = new Grafo(this.nome + " - Transposto");
         transposto.setVertices(new Vertice[] { });
-        //@ToDo
+        //@toDo
         return transposto;
-    }
-    
-    public void ordenacaoTopologica() {
-        //@ToDo
     }
     
     /**
@@ -361,29 +375,36 @@ public class Grafo {
         return grauEntrada;
     }
     
-    public void topologicalSort() throws Exception {
-        if (this.hasCiclo()) {
-            throw new Exception("Tentando realizar ordenação topológica em grafo cíclo");
+    /**
+     * Realiza a ordenação topológica do grafo.
+     * Percorre os vértices em profundidade e ao chegar em algum que não possua
+     * nenhuma adjacência não visitada, este será adicionado no início da lista.
+     * @return 
+     */
+    public List<Vertice> ordenacaoTopologica() {
+        List<Vertice> sortedGraph = new ArrayList<>();
+        
+        if (!this.hasCiclo()) {
+            this.profundidadeTopologicalSort(this.vertices[0], sortedGraph);
+        } else System.out.println("Obs: Tentativa de realizar ordenação em grafo cíclico");
+        
+        return sortedGraph;
+    }
+    
+    public void profundidadeTopologicalSort(Vertice current, List<Vertice> sortedGraph) {
+    	List<Vertice> visited = new ArrayList<>();
+    	this.profundidadeTopologicalSort(current, sortedGraph, visited);
+    }
+
+    public void profundidadeTopologicalSort(Vertice current, List<Vertice> sortedGraph, List<Vertice> visited) {
+    	if (visited.contains(current)) return ;
+    	
+    	visited.add(current);
+    	for (Vertice adjacencia : current.getAdjacencias()) {
+            this.profundidadeTopologicalSort(adjacencia, sortedGraph, visited);
         }
-        this.setInDegrees();
-        Vertice[] tsL = new Vertice[this.vertices.length];;
-        LinkedList<Vertice> S = new LinkedList<>(); // fila S com vertice fonte
-        for (Vertice v : this.vertices) {
-            if (v.getGrau() == 0)
-                S.add(v);
-        }
-        int t = 0; // inicia contador
-        while (!S.isEmpty()) {
-            Vertice v = S.poll();
-            v.setTopSort(t);
-            tsL[t++] = v; // insere em arranjo ordenado
-            for (Vertice w : v.getAdjacencias()) {
-                w.inDegree--;
-                if (w.inDegree == 0) {
-                    S.add(w);
-                }
-            }
-        }
+        
+        sortedGraph.add(0, current);
     }
     
     public void setInDegrees() {

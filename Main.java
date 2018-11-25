@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho.prático.grafos;
+package trabalhopratico;
 
 import java.util.Arrays;
 
@@ -33,10 +33,10 @@ public class Main {
         Vertice v4 = new Vertice("4");
         
         /* Definindo adjacências dos vértices   */    
-        v1.setAdjacencias(new Vertice[]{ v2, v3, v4 });
-        v2.setAdjacencias(new Vertice[]{ v4, v1, v3 });
-        v3.setAdjacencias(new Vertice[]{ v1, v4, v2 });
-        v4.setAdjacencias(new Vertice[]{ v1, v2, v3 });
+        v1.setAdjacencias(new Vertice[]{ v2, v4 });
+        v2.setAdjacencias(new Vertice[]{ v1, v3 });
+        v3.setAdjacencias(new Vertice[]{ v2 });
+        v4.setAdjacencias(new Vertice[]{ v1 });
         
         /* Inserindo vértices no grafo                                             */
         grafo.setVertices(new Vertice[]{ v1, v2, v3, v4 });
@@ -60,10 +60,10 @@ public class Main {
         System.out.println("Possui algum ciclo?        " + escreverBooleano(grafo.hasCiclo()));
         System.out.println("Possui ciclo ímpar?        " + escreverBooleano(grafo.hasCicloImpar()));
         System.out.println("É bipartido?               " + escreverBooleano(grafo.isBipartido()));
-        System.out.println("\n" + grafo.getComplementar()); //@toDo
+        System.out.println("\n" + grafo.getComplementar()); 
         System.out.println(grafo.getTransposto());          //@toDo
-        grafo.ordenacaoTopologica();                        //@toDo
-        System.out.println("\nGrafo pós ordenação topológica:\n" + grafo);
+        System.out.println("\nGrafo pós ordenação topológica:");
+        System.out.println(grafo.ordenacaoTopologica());
     }
     
     public static String escreverBooleano(boolean resposta) {
