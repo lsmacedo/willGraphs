@@ -57,6 +57,7 @@ public class Main {
         System.out.println("Possui algum ciclo?        " + escreverBooleano(grafo.hasCiclo()));
         System.out.println("Possui ciclo ímpar?        " + escreverBooleano(grafo.hasCicloImpar()));
         System.out.println("É bipartido?               " + escreverBooleano(grafo.isBipartido()));
+        System.out.println("Grau de entrada de v1:     " + grafo.getGrauEntrada(v1));
         System.out.println("\n" + grafo.getComplementar()); 
         System.out.println(grafo.getTransposto());          //@toDo
         System.out.println("\nGrafo pós ordenação topológica:");
