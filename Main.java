@@ -30,10 +30,10 @@ public class Main {
         Vertice v4 = new Vertice("4");
         
         /* Definindo adjacências dos vértices   */    
-        v1.setAdjacencias(new Vertice[]{ v2, v4 });
-        v2.setAdjacencias(new Vertice[]{ v1, v3 });
-        v3.setAdjacencias(new Vertice[]{ v2 });
-        v4.setAdjacencias(new Vertice[]{ v1 });
+        v1.setAdjacencias(new Vertice[]{ v4 });
+        v2.setAdjacencias(new Vertice[]{ });
+        v3.setAdjacencias(new Vertice[]{ v1 });
+        v4.setAdjacencias(new Vertice[]{ v3 });
         
         /* Inserindo vértices no grafo                                             */
         grafo.setVertices(new Vertice[]{ v1, v2, v3, v4 });

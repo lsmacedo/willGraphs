@@ -287,11 +287,17 @@ public class Grafo {
         return new MatrizAdjacencias(matriz, this.nome);
     }
     
-    public Grafo getTransposto() {
-        Grafo transposto = new Grafo(this.nome + " - Transposto");
-        transposto.setVertices(new Vertice[] { });
-        //@toDo
-        return transposto;
+    public MatrizAdjacencias getTransposto() {
+        Integer[][] matriz     = this.montarMatriz().getMatriz();
+        Integer[][] transposto = new Integer[matriz.length][matriz[0].length];
+        
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[0].length; j++) {
+                transposto[j][i] = matriz[i][j];
+            }
+        }
+        
+        return new MatrizAdjacencias(transposto, this.nome + " - Transposto");
     }
     
     /**
